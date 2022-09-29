@@ -52,6 +52,8 @@ namespace AnimalShelter
 
         private async void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer("audio.wav");
+            player.Play();
             bool isError = false;
             using (animal_shelterContext db = new(MainWindow.dbOptions))
             {
@@ -113,6 +115,8 @@ namespace AnimalShelter
 
         private async void btnInsert_Click(object sender, RoutedEventArgs e)
         {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer("audio.wav");
+            player.Play();
             bool isError = false;
             using (animal_shelterContext db = new(MainWindow.dbOptions))
             {
@@ -163,6 +167,8 @@ namespace AnimalShelter
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer("audio.wav");
+            player.Play();
             bool isError = false;
             using (animal_shelterContext db = new(MainWindow.dbOptions))
             {

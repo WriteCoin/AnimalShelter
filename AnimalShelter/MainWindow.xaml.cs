@@ -67,6 +67,8 @@ namespace AnimalShelter
                 else
                 {
                     Show();
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer("hello-audio.wav");
+                    player.Play();
                 }
             }
             else
@@ -101,8 +103,8 @@ namespace AnimalShelter
                 }
 
                 Admin? @admin = await (from Admin in db.Admins
-                                             where Admin.PersonId == person.Id
-                                             select Admin).FirstOrDefaultAsync();
+                                       where Admin.PersonId == person.Id
+                                       select Admin).FirstOrDefaultAsync();
                 if (@admin == null)
                 {
                     MessageBox.Show("Нет прав для входа");
@@ -167,8 +169,8 @@ namespace AnimalShelter
                 {
                     //Request.RegDate.ToDateTime(new()).CompareTo(regDateMin.SelectedDate) >= 0 && Request.RegDate.ToDateTime(new()).CompareTo(regDateMax.SelectedDate ) <= 0
                     var requests = await (from Request in db.Requests
-                                          //join RequestType in db.RequestTypes on Request.RequestTypeId equals RequestType.Id
-                                          //join RequestStatus in db.RequestStatuses on Request.RequestStatusId equals RequestStatus.Id
+                                              //join RequestType in db.RequestTypes on Request.RequestTypeId equals RequestType.Id
+                                              //join RequestStatus in db.RequestStatuses on Request.RequestStatusId equals RequestStatus.Id
                                           where
                                             Request.RequestType.Name == (string)requestTypesList.SelectedValue &&
                                             Request.RequestStatus.Name == (string)requestStatusesList.SelectedValue &&
@@ -186,7 +188,8 @@ namespace AnimalShelter
                                           }).ToListAsync();
 
                     grid.ItemsSource = requests;
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show($"Ошибка: {ex.Message}");
                 }
@@ -200,7 +203,8 @@ namespace AnimalShelter
                 AnimalSheltersWindow = new();
                 AnimalSheltersWindow.Owner = this;
                 AnimalSheltersWindow.Show();
-            } else
+            }
+            else
             {
                 AnimalSheltersWindow.Focus();
             }
@@ -222,6 +226,9 @@ namespace AnimalShelter
 
         private async void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer("audio.wav");
+            player.Play();
+
             bool isError = false;
             using (animal_shelterContext db = new(dbOptions))
             {
@@ -248,7 +255,8 @@ namespace AnimalShelter
                         if (address != null)
                         {
                             newAddress = address;
-                        } else
+                        }
+                        else
                         {
                             newAddress = new Address
                             {
@@ -265,7 +273,8 @@ namespace AnimalShelter
                             newAddress.Id = lastAddress.Id + 1;
                         }
 
-                        Request data = new Request { 
+                        Request data = new Request
+                        {
                             Id = Item.Id,
                             RequestTypeId = RequestTypeId,
                             RegDate = DateOnly.Parse(Item.RegDate),
